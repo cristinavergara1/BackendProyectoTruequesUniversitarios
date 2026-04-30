@@ -1,14 +1,18 @@
 package com.trueques.backend.Controller;
 
-import com.trueques.backend.Entity.Articulo;
+import com.trueques.backend.DTO.ArticuloRequestDTO;
+import com.trueques.backend.DTO.ArticuloResponseDTO;
 import com.trueques.backend.Service.ArticuloService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/articulos")
-@CrossOrigin(origins = "*") // para conectar con frontend
+@CrossOrigin(origins = "*")
 public class ArticuloController {
 
     private final ArticuloService articuloService;
@@ -17,31 +21,34 @@ public class ArticuloController {
         this.articuloService = articuloService;
     }
 
-    // CREATE
+    // ✅ CREATE
     @PostMapping
-    public Articulo crear(@RequestBody Articulo articulo) {
-        return articuloService.crear(articulo);
+    public ArticuloResponseDTO crear(@Valid @RequestBody ArticuloRequestDTO dto) {
+        return articuloService.crear(dto);
     }
 
-    // READ (todos)
+    // ✅ READ ALL
     @GetMapping
-    public List<Articulo> listar() {
+    public List<ArticuloResponseDTO> listar() {
         return articuloService.listar();
     }
 
-    // READ (por ID)
+    // ✅ READ BY ID
     @GetMapping("/{id}")
-    public Articulo obtener(@PathVariable Long id) {
+    public ArticuloResponseDTO obtener(@PathVariable Long id) {
         return articuloService.obtenerPorId(id);
     }
 
-    // UPDATE
+    // ✅ UPDATE
     @PutMapping("/{id}")
-    public Articulo actualizar(@PathVariable Long id, @RequestBody Articulo articulo) {
-        return articuloService.actualizar(id, articulo);
+    public ArticuloResponseDTO actualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody ArticuloRequestDTO dto) {
+
+        return articuloService.actualizar(id, dto);
     }
 
-    // DELETE
+    // ✅ DELETE
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
         articuloService.eliminar(id);
