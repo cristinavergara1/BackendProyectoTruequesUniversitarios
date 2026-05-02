@@ -39,8 +39,8 @@ public class UsuarioRequestDTO {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getConfirmarpassword() { return confirmarpassword; }
-    public void setConfirmarpassword(String confirmarpassword) { this.confirmarpassword = confirmarpassword; }
+    public String getConfirmarPassword() { return confirmarpassword; }
+    public void setConfirmarPassword(String confirmarpassword) { this.confirmarpassword = confirmarpassword; }
 
     public String getProgramaAcademico() { return programaAcademico; }
     public void setProgramaAcademico(String programaAcademico) { this.programaAcademico = programaAcademico; }
