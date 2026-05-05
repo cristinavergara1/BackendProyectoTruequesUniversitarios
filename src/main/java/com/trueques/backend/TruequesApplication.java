@@ -13,19 +13,5 @@ public class TruequesApplication {
     public static void main(String[] args) {
         SpringApplication.run(TruequesApplication.class, args);
     }
-
-    @Bean
-    CommandLineRunner test(UsuarioRepository repo) {
-    return args -> {
-        Usuario u = new Usuario();
-        u.setNombre("Daniela");
-        u.setApellido("Perez");
-        u.setCorreo("test@udea.edu.co");
-        u.setPassword("1234");
-        u.setPrograma("Ingeniería");
-
-        repo.save(u);
-    };
-}
 }
 
