@@ -6,6 +6,7 @@ import com.trueques.backend.DTO.UsuarioResponseDTO;
 import com.trueques.backend.Entity.Usuario;
 import com.trueques.backend.Mapper.UsuarioMapper;
 import com.trueques.backend.Service.UsuarioService;
+import com.trueques.backend.DTO.EstadisticasUsuarioDTO;
 
 import java.util.List;
 
@@ -65,5 +66,10 @@ public class UsuarioController {
 
         Usuario usuario = usuarioService.obtenerPorId(id);
         return UsuarioMapper.toDTO(usuario);
+    }
+
+    @GetMapping("/{id}/estadisticas")
+    public EstadisticasUsuarioDTO obtenerEstadisticas(@PathVariable Long id) {
+        return usuarioService.obtenerEstadisticas(id);
     }
 }
