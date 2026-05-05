@@ -5,6 +5,9 @@ import com.trueques.backend.DTO.UsuarioRequestDTO;
 import com.trueques.backend.Entity.Usuario;
 import com.trueques.backend.Mapper.UsuarioMapper;
 import com.trueques.backend.Repository.UsuarioRepository;
+import com.trueques.backend.DTO.EstadisticasUsuarioDTO;
+import com.trueques.backend.Repository.PropuestaRepository;
+import com.trueques.backend.Enums.EstadoPropuesta;
 
 import java.util.List;
 
@@ -14,9 +17,11 @@ import org.springframework.stereotype.Service;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final PropuestaRepository propuestaRepository;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PropuestaRepository propuestaRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.propuestaRepository = propuestaRepository;
     }
 
     public Usuario registrar(Usuario usuario) {
@@ -58,5 +63,21 @@ public class UsuarioService {
     public Usuario obtenerPorId(Long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
+    public EstadisticasUsuarioDTO obtenerEstadisticas(Long userId) {
+
+        long total = propuestaRepository
+            .countByUsuarioOrigenIdOrUsuarioDestinoId(userId, userId);
+
+        long completadosOrigen = propuestaRepository
+            .countByEstadoAndUsuarioOrigenId(EstadoPropuesta.ACEPTADA, userId);
+
+        long completadosDestino = propuestaRepository
+            .countByEstadoAndUsuarioDestinoId(EstadoPropuesta.ACEPTADA, userId);
+
+        long completados = completadosOrigen + completadosDestino;
+
+        return new EstadisticasUsuarioDTO(total, completados, 0.0);
     }
 }

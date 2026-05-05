@@ -9,3 +9,4 @@ public class TruequesApplication {
         SpringApplication.run(TruequesApplication.class, args);
     }
 }
+

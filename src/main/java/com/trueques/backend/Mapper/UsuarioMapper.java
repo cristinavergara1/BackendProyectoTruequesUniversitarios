@@ -14,10 +14,17 @@ public class UsuarioMapper {
     }
 
     public static UsuarioResponseDTO toDTO(Usuario u) {
-        return new UsuarioResponseDTO(
-                u.getId(),
-                u.getNombre(),
-                u.getCorreo()
+        UsuarioResponseDTO dto = new UsuarioResponseDTO(
+            u.getId(),
+            u.getNombre(),
+            u.getCorreo()
         );
+    dto.setPrograma(u.getPrograma());
+    // stadísticas 
+    dto.setTotalIntercambios(0);
+    dto.setIntercambiosCompletados(0);
+    dto.setCalificacionPromedio(0.0);
+
+    return dto;
     }
 }
