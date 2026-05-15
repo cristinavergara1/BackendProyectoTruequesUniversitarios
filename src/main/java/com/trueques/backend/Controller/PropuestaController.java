@@ -24,7 +24,7 @@ public class PropuestaController {
             @RequestBody PropuestaRequestDTO dto) {
 
         return ResponseEntity.ok(
-                propuestaService.enviarPropuesta(usuarioId, dto)
+                PropuestaMapper.toDTO(propuestaService.enviarPropuesta(usuarioId, dto))
         );
     }
 
@@ -42,7 +42,9 @@ public class PropuestaController {
     @GetMapping("/recibidas")
     public ResponseEntity<?> recibidas(@RequestParam Long usuarioId) {
         return ResponseEntity.ok(
-                propuestaService.obtenerPropuestasRecibidas(usuarioId)
+                PropuestaMapper.toDTOList(
+                        propuestaService.obtenerPropuestasRecibidas(usuarioId)
+                )
         );
     }
 
@@ -54,7 +56,7 @@ public class PropuestaController {
             @RequestParam EstadoPropuesta estado) {
 
         return ResponseEntity.ok(
-                propuestaService.gestionarPropuesta(id, usuarioId, estado)
+                                PropuestaMapper.toDTO(propuestaService.gestionarPropuesta(id, usuarioId, estado))
         );
     }
 }

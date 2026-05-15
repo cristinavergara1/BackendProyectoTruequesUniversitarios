@@ -8,4 +8,8 @@ import com.trueques.backend.Entity.Publicacion;
 @Repository
 public interface PublicacionRepository extends JpaRepository<Publicacion, Long> {
 
+	// Permite resolver la publicación asociada a un artículo.
+	// Útil cuando el frontend solo maneja el id del Articulo.
+	Publicacion findByArticuloId(Long articuloId);
+
 }
